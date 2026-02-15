@@ -71,18 +71,30 @@ button:hover{background:#e63950;transform:scale(1.05)}
 <div class="card">
   <div class="rose">🌹</div>
   <h1 id="title">โอ้นนน 💖</h1>
-  <p>อย่างอลกันเลยนะโอ้น</p>
+  <p>อย่างอลกันเลยนะโอ้น<br>กราบขออภัย🙏🙏</p>
   <button onclick="showLove()">กดดูความลับ 💌</button>
   <button onclick="toggleMusic()">เปิด / ปิด เพลง 🎵</button>
   <div class="message" id="loveMessage"></div>
   <div class="counter" id="dayCounter"></div>
 </div>
 
-<iframe width="0" height="0"
-  src="https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU"
+<button onclick="startMusic()">กดเพื่อเปิดเพลง 🎵</button>
+
+<iframe id="ytplayer"
+  width="0"
+  height="0"
+  src=""
   frameborder="0"
-  allow="autoplay">
+  allow="autoplay; encrypted-media">
 </iframe>
+
+<script>
+function startMusic() {
+  document.getElementById("ytplayer").src =
+    "https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU";
+}
+</script>
+
 
 
 <script>
