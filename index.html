@@ -78,24 +78,26 @@ button:hover{background:#e63950;transform:scale(1.05)}
   <div class="counter" id="dayCounter"></div>
 </div>
 
-<audio id="bgMusic" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+<iframe width="0" height="0"
+  src="https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU"
+  frameborder="0"
+  allow="autoplay">
+</iframe>
+
 
 <script>
 // ====== ปรับชื่อแฟนตรงนี้ ======
-const loverName = "คนสวยของฉัน";
+const loverName = "ดรีมมี่";
 document.getElementById("title").innerText = "ถึง " + loverName + " 💖";
 
 // ====== ข้อความสุ่ม ======
 function showLove(){
   const messages=[
-    "รักเธอมากกว่าดอกกุหลาบทั้งสวน 🌹",
-    "อยู่ข้าง ๆ เธอเสมอนะ 💕",
-    "เธอคือรอยยิ้มของฉันทุกวัน 😊",
-    "ขอบคุณที่เข้ามาในชีวิตกันนะ 💖",
-    "โลกทั้งใบไม่สำคัญเท่าเธอเลย 🌍",
-    "ขอจับมือกันไปนาน ๆ นะ 🤝"
+    "เค้ารักเทอนะโอ้นนน 🌹",
+    "อย่างอลเค้าเลยนะะะ 💕",
+    "คิดถึงเทอมากๆๆเบยยย 😊",
+    "ดีกันโอ้นน 💖",
+    "รักเทอที่สุดเบยยย 🌍",
   ];
   const randomIndex=Math.floor(Math.random()*messages.length);
   typeWriter(messages[randomIndex]);
@@ -125,7 +127,7 @@ function toggleMusic(){
 }
 
 // ====== นับวันครบรอบ ======
-const startDate=new Date("2024-01-01"); // แก้วันเริ่มคบตรงนี้
+const startDate=new Date("2018-06-16"); // แก้วันเริ่มคบตรงนี้
 const today=new Date();
 const diffTime=today-startDate;
 const diffDays=Math.floor(diffTime/(1000*60*60*24));
