@@ -3,161 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love 🌹</title>
+<title>For My Love 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Kanit',sans-serif;}
+
 body{
-  font-family:'Kanit',sans-serif;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow:hidden;
+  background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#fcb69f);
+  background-size:400% 400%;
+  animation: gradientMove 12s ease infinite;
 }
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
 .card{
-  background:white;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
   padding:40px;
   border-radius:30px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+  box-shadow:0 25px 60px rgba(0,0,0,0.2);
   max-width:420px;
-  position:relative;
   animation:fadeIn 1.5s ease;
+  position:relative;
   z-index:2;
 }
-h1{color:#ff4d6d;margin-bottom:10px}
-p{font-size:18px;margin-bottom:20px;color:#555}
+
+h1{
+  color:#ff4d6d;
+  margin-bottom:15px;
+  font-size:26px;
+}
+
+p{
+  margin-bottom:25px;
+  color:#555;
+}
+
 button{
-  background:#ff4d6d;
-  color:white;
+  background:linear-gradient(45deg,#ff4d6d,#ff758f);
   border:none;
   padding:12px 25px;
   border-radius:25px;
+  color:white;
   font-size:16px;
   cursor:pointer;
   transition:0.3s;
-  margin:5px;
+  box-shadow:0 10px 25px rgba(255,77,109,0.4);
 }
-button:hover{background:#e63950;transform:scale(1.05)}
-.rose{font-size:60px;animation:float 3s ease-in-out infinite}
-.message{margin-top:15px;font-size:18px;color:#ff4d6d;min-height:24px}
-.counter{margin-top:10px;color:#e63950;font-weight:600}
 
-.heart{
-  position:absolute;
+button:hover{
+  transform:scale(1.1);
+}
+
+.rose{
+  font-size:70px;
+  animation:float 3s ease-in-out infinite;
+}
+
+.message{
+  margin-top:20px;
+  font-size:18px;
   color:#ff4d6d;
-  animation:fall linear infinite;
+  min-height:30px;
+  transition:0.5s;
 }
 
 @keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-  100%{transform:translateY(0)}
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
 }
+
 @keyframes fadeIn{
-  from{opacity:0;transform:scale(0.8)}
-  to{opacity:1;transform:scale(1)}
+  from{opacity:0;transform:scale(0.8);}
+  to{opacity:1;transform:scale(1);}
 }
+
+.heart{
+  position:absolute;
+  font-size:20px;
+  animation:fall linear forwards;
+}
+
 @keyframes fall{
-  0%{transform:translateY(-10vh) rotate(0deg)}
-  100%{transform:translateY(110vh) rotate(360deg)}
+  0%{transform:translateY(-10vh) scale(1);opacity:1;}
+  100%{transform:translateY(110vh) scale(0.5);opacity:0;}
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
   <div class="rose">🌹</div>
-  <h1 id="title">โอ้นนน 💖</h1>
-  <p>อย่างอลกันเลยนะโอ้น<br>กราบขออภัย🙏🙏</p>
-  <button onclick="showLove()">กดดูความลับ 💌</button>
-  <button onclick="toggleMusic()">เปิด / ปิด เพลง 🎵</button>
+  <h1>ถึงคนพิเศษของฉัน 💖</h1>
+  <p>เว็บไซต์นี้ทำเพื่อเธอคนเดียวเลยนะ</p>
+  <button onclick="startLove()">กดเพื่อเปิดหัวใจ 🎵</button>
   <div class="message" id="loveMessage"></div>
-  <div class="counter" id="dayCounter"></div>
 </div>
 
-<button onclick="startMusic()">กดเพื่อเปิดเพลง 🎵</button>
-
+<!-- เพลง YouTube -->
 <iframe id="ytplayer"
   width="0"
   height="0"
-  src=""
   frameborder="0"
-  allow="autoplay; encrypted-media">
+  allow="autoplay; encrypted-media"
+  allowfullscreen>
 </iframe>
 
 <script>
-function startMusic() {
-  document.getElementById("ytplayer").src =
-    "https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU";
-}
-</script>
+let started=false;
 
-
-
-<script>
-// ====== ปรับชื่อแฟนตรงนี้ ======
-const loverName = "ดรีมมี่";
-document.getElementById("title").innerText = "ถึง " + loverName + " 💖";
-
-// ====== ข้อความสุ่ม ======
-function showLove(){
+function startLove(){
   const messages=[
-    "เค้ารักเทอนะโอ้นนน 🌹",
-    "อย่างอลเค้าเลยนะะะ 💕",
-    "คิดถึงเทอมากๆๆเบยยย 😊",
-    "ดีกันโอ้นน 💖",
-    "รักเทอที่สุดเบยยย 🌍",
+    "รักเธอมากกว่าดอกกุหลาบทั้งสวน 🌹",
+    "อยู่ข้าง ๆ เธอเสมอนะ 💕",
+    "เธอคือรอยยิ้มของฉันทุกวัน 😊",
+    "ขอบคุณที่เข้ามาในชีวิตกันนะ 💖",
+    "ถ้ามี 1000 เหตุผลให้ยิ้ม หนึ่งในนั้นคือเธอ 💞"
   ];
+
   const randomIndex=Math.floor(Math.random()*messages.length);
-  typeWriter(messages[randomIndex]);
-}
+  document.getElementById("loveMessage").innerText=messages[randomIndex];
 
-// ====== พิมพ์ทีละตัว ======
-function typeWriter(text){
-  let i=0;
-  const speed=50;
-  const target=document.getElementById("loveMessage");
-  target.innerHTML="";
-  function typing(){
-    if(i<text.length){
-      target.innerHTML+=text.charAt(i);
-      i++;
-      setTimeout(typing,speed);
-    }
+  if(!started){
+    document.getElementById("ytplayer").src=
+    "https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU";
+    started=true;
   }
-  typing();
+
+  createHearts();
 }
 
-// ====== เพลง ======
-function toggleMusic(){
-  const music=document.getElementById("bgMusic");
-  if(music.paused){music.play();}
-  else{music.pause();}
-}
+function createHearts(){
+  for(let i=0;i<20;i++){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(heart);
 
-// ====== นับวันครบรอบ ======
-const startDate=new Date("2018-06-16"); // แก้วันเริ่มคบตรงนี้
-const today=new Date();
-const diffTime=today-startDate;
-const diffDays=Math.floor(diffTime/(1000*60*60*24));
-document.getElementById("dayCounter").innerText=
-  "เรารักกันมาแล้ว " + diffDays + " วัน 💞";
-
-// ====== หัวใจตก ======
-function createHeart(){
-  const heart=document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML="💗";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=Math.random()*20+15+"px";
-  heart.style.animationDuration=Math.random()*3+3+"s";
-  document.body.appendChild(heart);
-  setTimeout(()=>{heart.remove();},6000);
+    setTimeout(()=>{heart.remove();},6000);
+  }
 }
-setInterval(createHeart,300);
 </script>
 
 </body>
