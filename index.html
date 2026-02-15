@@ -3,154 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Catch 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<title>For My Universe 💫</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;600&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Kanit',sans-serif;}
 
 body{
   height:100vh;
   overflow:hidden;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
   display:flex;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
+  color:white;
+  background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#ff4d9d);
+  background-size:400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* ดาว */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:0.3;}
+  to{opacity:1;}
+}
+
+/* ดาวตก */
+.shooting{
+  position:absolute;
+  width:2px;
+  height:80px;
+  background:linear-gradient(white,transparent);
+  transform:rotate(45deg);
+  animation:shoot 1s linear forwards;
+}
+@keyframes shoot{
+  from{opacity:1;transform:translate(0,0) rotate(45deg);}
+  to{opacity:0;transform:translate(300px,300px) rotate(45deg);}
+}
+
+/* หัวใจลอย */
+.floating-heart{
+  position:absolute;
+  font-size:20px;
+  animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+  from{transform:translateY(100vh);opacity:1;}
+  to{transform:translateY(-10vh);opacity:0;}
+}
+
+/* หน้าเริ่ม */
+.start-screen{
+  position:absolute;
+  text-align:center;
+  z-index:5;
+}
+.big-heart{
+  font-size:100px;
+  animation:pulse 1.5s infinite;
+  cursor:pointer;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+/* การ์ด */
+.card{
+  display:none;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(20px);
+  padding:50px;
+  border-radius:30px;
+  text-align:center;
+  box-shadow:0 0 60px rgba(255,0,150,0.6);
+  animation:fadeUp 2s ease forwards;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(50px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 h1{
-  color:white;
-  margin-bottom:10px;
+  font-size:28px;
+  color:#ff9edb;
 }
 
-#scoreBoard{
-  color:white;
-  margin-bottom:10px;
+.message{
+  margin-top:20px;
   font-size:18px;
+  min-height:40px;
+  color:#ffd6f5;
 }
 
-#gameArea{
-  position:relative;
-  width:90vw;
-  height:70vh;
-  background:rgba(255,255,255,0.2);
-  border-radius:20px;
-  overflow:hidden;
-  backdrop-filter:blur(10px);
-}
-
-.heart{
-  position:absolute;
-  font-size:30px;
-  cursor:pointer;
-  animation:fall linear forwards;
-}
-
-@keyframes fall{
-  from{transform:translateY(-50px);}
-  to{transform:translateY(80vh);}
-}
-
-#startBtn{
-  margin-top:15px;
-  padding:10px 20px;
+button{
+  margin-top:20px;
+  padding:12px 25px;
   border:none;
-  border-radius:20px;
-  background:#ff4d6d;
+  border-radius:25px;
+  background:#ff4d9d;
   color:white;
   cursor:pointer;
-  font-size:16px;
+  transition:0.3s;
+  box-shadow:0 0 20px rgba(255,77,157,0.8);
 }
-
-#startBtn:hover{
+button:hover{
   transform:scale(1.1);
+  box-shadow:0 0 40px rgba(255,77,157,1);
 }
 
-#message{
-  margin-top:10px;
-  color:white;
-  font-size:20px;
+.music-btn{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  font-size:14px;
 }
 </style>
 </head>
 <body>
 
-<h1>💘 เกมเก็บหัวใจ 💘</h1>
-<div id="scoreBoard">คะแนน: 0 | เวลา: 30</div>
-<div id="gameArea"></div>
-<button id="startBtn" onclick="startGame()">เริ่มเกม 💖</button>
-<div id="message"></div>
+<div class="start-screen" id="startScreen">
+  <div class="big-heart" onclick="startExperience()">💓</div>
+  <p>กดหัวใจเพื่อเข้าสู่จักรวาลของเรา</p>
+</div>
+
+<div class="card" id="card">
+  <h1>เธอคือจักรวาลของฉัน 🌌</h1>
+  <button onclick="showLove()">กดอีกครั้งสิ 💞</button>
+  <div class="message" id="msg"></div>
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">🎵 เปิด/ปิดเพลง</button>
 
 <iframe id="ytplayer" width="0" height="0" frameborder="0"
 allow="autoplay; encrypted-media"></iframe>
 
 <script>
-let score=0;
-let timeLeft=30;
-let gameInterval;
-let heartInterval;
-let playing=false;
 
-function startGame(){
-  if(playing) return;
+/* ดาวพื้นหลัง */
+for(let i=0;i<150;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.top=Math.random()*100+"vh";
+  star.style.left=Math.random()*100+"vw";
+  star.style.animationDuration=(1+Math.random()*2)+"s";
+  document.body.appendChild(star);
+}
 
-  score=0;
-  timeLeft=30;
-  playing=true;
-  document.getElementById("message").innerText="";
-  document.getElementById("scoreBoard").innerText="คะแนน: 0 | เวลา: 30";
+/* ดาวตกทุก 5 วิ */
+setInterval(()=>{
+  let shoot=document.createElement("div");
+  shoot.className="shooting";
+  shoot.style.top=Math.random()*50+"vh";
+  shoot.style.left=Math.random()*50+"vw";
+  document.body.appendChild(shoot);
+  setTimeout(()=>shoot.remove(),1000);
+},5000);
 
+/* หัวใจลอย */
+setInterval(()=>{
+  let heart=document.createElement("div");
+  heart.className="floating-heart";
+  heart.innerText="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(15+Math.random()*20)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},800);
+
+function startExperience(){
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("card").style.display="block";
   document.getElementById("ytplayer").src=
   "https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU";
-
-  gameInterval=setInterval(updateTime,1000);
-  heartInterval=setInterval(createHeart,800);
 }
 
-function updateTime(){
-  timeLeft--;
-  document.getElementById("scoreBoard").innerText=
-  "คะแนน: "+score+" | เวลา: "+timeLeft;
-
-  if(timeLeft<=0){
-    endGame();
-  }
-}
-
-function createHeart(){
-  const heart=document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerText="💖";
-  heart.style.left=Math.random()*85+"vw";
-  heart.style.animationDuration=(3+Math.random()*2)+"s";
-
-  heart.onclick=function(){
-    score++;
-    heart.remove();
-    document.getElementById("scoreBoard").innerText=
-    "คะแนน: "+score+" | เวลา: "+timeLeft;
-  };
-
-  document.getElementById("gameArea").appendChild(heart);
-
-  setTimeout(()=>heart.remove(),5000);
-}
-
-function endGame(){
-  clearInterval(gameInterval);
-  clearInterval(heartInterval);
-  playing=false;
-
-  let finalMessage="";
-  if(score<10){
-    finalMessage="เก็บใหม่เลยโอ้น";
-  }else if(score<25){
-    finalMessage="เก่งมากเลย 💕";
+let musicOn=true;
+function toggleMusic(){
+  const player=document.getElementById("ytplayer");
+  if(musicOn){
+    player.src="";
+    musicOn=false;
   }else{
-    finalMessage="เก่งมากเลยโอ้น 💖💖";
+    player.src="https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU";
+    musicOn=true;
   }
+}
 
-  document.getElementById("message").innerText=finalMessage;
+/* พิมพ์ทีละตัว */
+function typeWriter(text){
+  let i=0;
+  let speed=40;
+  let msg=document.getElementById("msg");
+  msg.innerHTML="";
+  function typing(){
+    if(i<text.length){
+      msg.innerHTML+=text.charAt(i);
+      i++;
+      setTimeout(typing,speed);
+    }
+  }
+  typing();
+}
+
+function showLove(){
+  const texts=[
+  "เค้ารักเทอนะโอ้นนน ☀️",
+  "ถึงจะไม่รู้จะแสดงยังไง ",
+  "เดี๋ยวก็ได้เจอกันแล้ว คิดถึงมากๆๆๆๆ 🌌",
+  "ขอโทษอีกครั้ง รักนะจุ้บๆๆๆ 🥺",
+  ];
+  typeWriter(texts[Math.floor(Math.random()*texts.length)]);
 }
 </script>
 
