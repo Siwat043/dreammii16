@@ -3,159 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+<title>For My Universe 💫</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Kanit',sans-serif;}
-
 body{
   height:100vh;
+  overflow:hidden;
+  background:black;
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
-  background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#fcb69f);
-  background-size:400% 400%;
-  animation: gradientMove 12s ease infinite;
-}
-
-@keyframes gradientMove{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-.card{
-  background:rgba(255,255,255,0.95);
-  backdrop-filter:blur(10px);
-  padding:40px;
-  border-radius:30px;
-  text-align:center;
-  box-shadow:0 25px 60px rgba(0,0,0,0.2);
-  max-width:420px;
-  animation:fadeIn 1.5s ease;
-  position:relative;
-  z-index:2;
-}
-
-h1{
-  color:#ff4d6d;
-  margin-bottom:15px;
-  font-size:26px;
-}
-
-p{
-  margin-bottom:25px;
-  color:#555;
-}
-
-button{
-  background:linear-gradient(45deg,#ff4d6d,#ff758f);
-  border:none;
-  padding:12px 25px;
-  border-radius:25px;
   color:white;
-  font-size:16px;
+}
+
+/* ดาวพื้นหลัง */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:0.2;}
+  to{opacity:1;}
+}
+
+/* หัวใจเริ่มต้น */
+.start-screen{
+  position:absolute;
+  text-align:center;
+  z-index:5;
+}
+.big-heart{
+  font-size:100px;
+  animation: pulse 1.5s infinite;
+  cursor:pointer;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+/* การ์ด */
+.card{
+  display:none;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);
+  padding:40px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,0,100,0.5);
+  animation: fadeUp 2s ease forwards;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(50px);}
+  to{opacity:1;transform:translateY(0);}
+}
+h1{
+  color:#ff4d9d;
+}
+.message{
+  margin-top:20px;
+  font-size:18px;
+  min-height:30px;
+  color:#ffb3d9;
+}
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff4d9d;
+  color:white;
   cursor:pointer;
   transition:0.3s;
-  box-shadow:0 10px 25px rgba(255,77,109,0.4);
 }
-
 button:hover{
   transform:scale(1.1);
 }
 
-.rose{
-  font-size:70px;
-  animation:float 3s ease-in-out infinite;
-}
-
-.message{
-  margin-top:20px;
-  font-size:18px;
-  color:#ff4d6d;
-  min-height:30px;
-  transition:0.5s;
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-12px);}
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(0.8);}
-  to{opacity:1;transform:scale(1);}
-}
-
-.heart{
+/* หัวใจระเบิด */
+.explode-heart{
   position:absolute;
   font-size:20px;
-  animation:fall linear forwards;
+  animation: explode 2s linear forwards;
 }
-
-@keyframes fall{
-  0%{transform:translateY(-10vh) scale(1);opacity:1;}
-  100%{transform:translateY(110vh) scale(0.5);opacity:0;}
+@keyframes explode{
+  from{transform:translate(0,0);opacity:1;}
+  to{transform:translate(var(--x),var(--y));opacity:0;}
 }
 </style>
 </head>
-
 <body>
 
-<div class="card">
-  <div class="rose">🌹</div>
-  <h1>ถึงคนพิเศษของฉัน 💖</h1>
-  <p>เว็บไซต์นี้ทำเพื่อเธอคนเดียวเลยนะ</p>
-  <button onclick="startLove()">กดเพื่อเปิดหัวใจ 🎵</button>
-  <div class="message" id="loveMessage"></div>
+<div class="start-screen" id="startScreen">
+  <div class="big-heart" onclick="startExperience()">💓</div>
+  <p>กดเลยโอ้นน</p>
 </div>
 
-<!-- เพลง YouTube -->
-<iframe id="ytplayer"
-  width="0"
-  height="0"
-  frameborder="0"
-  allow="autoplay; encrypted-media"
-  allowfullscreen>
-</iframe>
+<div class="card" id="card">
+  <h1>กราบขออภัยอีกครั้งอย่างสูง🙏🙏🙏 🌌</h1>
+  <button onclick="showLove()">กดอีกครั้งสิ 💞</button>
+  <div class="message" id="msg"></div>
+</div>
+
+<iframe id="ytplayer" width="0" height="0" frameborder="0"
+allow="autoplay; encrypted-media"></iframe>
 
 <script>
-let started=false;
-
-function startLove(){
-  const messages=[
-    "รักเธอมากกว่าดอกกุหลาบทั้งสวน 🌹",
-    "อยู่ข้าง ๆ เธอเสมอนะ 💕",
-    "เธอคือรอยยิ้มของฉันทุกวัน 😊",
-    "ขอบคุณที่เข้ามาในชีวิตกันนะ 💖",
-    "ถ้ามี 1000 เหตุผลให้ยิ้ม หนึ่งในนั้นคือเธอ 💞"
-  ];
-
-  const randomIndex=Math.floor(Math.random()*messages.length);
-  document.getElementById("loveMessage").innerText=messages[randomIndex];
-
-  if(!started){
-    document.getElementById("ytplayer").src=
-    "https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU";
-    started=true;
-  }
-
-  createHearts();
+/* สร้างดาว */
+for(let i=0;i<120;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.top=Math.random()*100+"vh";
+  star.style.left=Math.random()*100+"vw";
+  star.style.animationDuration=(1+Math.random()*2)+"s";
+  document.body.appendChild(star);
 }
 
-function createHearts(){
-  for(let i=0;i<20;i++){
-    const heart=document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerText="💖";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(3+Math.random()*3)+"s";
-    document.body.appendChild(heart);
+function startExperience(){
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("card").style.display="block";
 
-    setTimeout(()=>{heart.remove();},6000);
+  document.getElementById("ytplayer").src=
+  "https://www.youtube.com/embed/m6qgxvYcjGU?autoplay=1&loop=1&playlist=m6qgxvYcjGU";
+
+  explodeHearts();
+}
+
+function explodeHearts(){
+  for(let i=0;i<40;i++){
+    let heart=document.createElement("div");
+    heart.className="explode-heart";
+    heart.innerText="💖";
+    heart.style.left="50%";
+    heart.style.top="50%";
+    heart.style.setProperty('--x',(Math.random()*400-200)+"px");
+    heart.style.setProperty('--y',(Math.random()*400-200)+"px");
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),2000);
   }
+}
+
+function showLove(){
+  const texts=[
+    "เค้ารักเทอนะโอ้นนน ☀️",
+    "ถึงจะไม่รู้จะเเสดงยังไง💫",
+    "อยุ่ไกลกันอีกกก 💖",
+    "เดี๋ยวก็เจอกันเเล้วรักเทอนะะะะคิดถึงมากๆๆๆๆ 🌌"
+  ];
+  document.getElementById("msg").innerText=
+  texts[Math.floor(Math.random()*texts.length)];
 }
 </script>
 
